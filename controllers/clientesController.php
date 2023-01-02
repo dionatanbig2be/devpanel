@@ -63,14 +63,62 @@ class clientesController extends controller
         $this->loadTemplate('clientes/chave_api', $dados);
     }
 
-     //ANCHOR - Criar acesso
-     public function criar_acesso()
-     {
-         $this->checkAcesso(array(1));
-         $c = new Clientes();
-         $dados = array();
-         $dados['tituloPagina'] = "Criar Acesso ao Painel";
-         $dados['clientes'] = $c->listClientes();
-         $this->loadTemplate('clientes/criar_acesso', $dados);
-     }
+    //ANCHOR - Criar acesso
+    public function criar_acesso()
+    {
+        $this->checkAcesso(array(1));
+        $c = new Clientes();
+        $dados = array();
+        $dados['tituloPagina'] = "Criar Acesso ao Painel";
+        $dados['clientes'] = $c->listClientes();
+        if (isset($_POST['submit'])) {
+            $user = $_POST['login'];
+            $hashpass = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+        }
+        $this->loadTemplate('clientes/criar_acesso', $dados);
+    }
+
+
+    //ANCHOR - Grupos de Usuários
+    public function gruposusuarios()
+    {
+        $this->checkAcesso(array(1));
+        $c = new Clientes();
+        if (isset($_POST['submit'])) {
+            $paginas = 'v2/client/home.php;';
+            if (isset($_POST['paginas_all']))
+                $paginas = "ALL";
+            else {
+                foreach ($_POST['paginas'] as $pg) {
+                    $paginas .= $pg . ';';
+                }
+                $paginas = rtrim($paginas, ';');
+            }
+            $add_grupo = $c->addGrupo($_POST['nome_grupo_prefix'] . $_POST['nome_grupo'], $_POST['cliente_id'], $paginas);
+            if ($add_grupo) {
+                $this->msg('s', 'Grupo adicionado com sucesso');
+                header("Location: " . BASE_URL . "clientes/gruposusuarios");
+            }
+        } else {
+            $dados = array();
+            $dados['tituloPagina'] = "Criar Acesso ao Painel";
+            $dados['clientes'] = $c->listClientes();
+            $dados['paginas'] = $c->listPaginas();
+            $this->loadTemplate('clientes/gruposusuarios', $dados);
+        }
+    }
+
+    //ANCHOR - Carrega Grupos
+    public function load_grupos($tipo, $cliente_id = 0)
+    {
+        if ($cliente_id != 0) {
+            $this->checkAcesso(array(1));
+            $c = new Clientes();
+            $dados = array();
+            $dados['tituloPagina'] = "Criar Acesso ao Painel";
+            $dados['grupos'] = $c->listGrupos($cliente_id);
+            $dados['tipo'] = $tipo;
+            $this->loadTemplateBlank('clientes/load_grupos', $dados);
+        }
+    }
 }

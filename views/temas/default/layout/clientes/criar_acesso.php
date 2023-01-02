@@ -2,7 +2,7 @@
     <div class="content">
         <section class="section">
             <div class="row">
-            <div class="col-md-6">
+                <div class="col-md-6">
                     <div class="card card-primary">
                         <div class="card-header">
                             <div class="header-block">
@@ -12,28 +12,40 @@
                         <form method="POST">
                             <div class="card-body">
                                 <div class="form-group">
+                                    <label for="cliente">Cliente</label>
+                                    <select name="cliente" id="cliente" class="form-control" required>
+                                        <option value="">Selecione um cliente</option>
+                                        <?php foreach ($clientes as $c) : ?>
+                                            <option value="<?= $c['id'] ?>"><?= $c['alcunha'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="prefixo">Login</label>
-                                    <input type="text" class="form-control" id="login" name="login">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="login_addon">prefixo_</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="login" name="login" required>
+                                    </div>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="app_" value="app_">
-                                    <label class="form-check-label" for="app_">app_</label>
+                                <div class="form-group">
+                                    <label for="prefixo">Senha</label>
+                                    <input type="text" class="form-control" id="senha" name="senha" required>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="dlv_" value="dlv_">
-                                    <label class="form-check-label" for="dlv_">dlv_</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="dwh_" value="dwh_">
-                                    <label class="form-check-label" for="dwh_">dwh_</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="wap_" value="wap_">
-                                    <label class="form-check-label" for="wap_">wap_</label>
+                                <div class="form-group">
+                                    <label for="grupo">Grupo</label>
+                                    <div class="input-group mb-3">
+                                        <select name="grupo" id="grupo" class="form-control" required>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <a href="./clientes/gruposusuarios" class="btn  btn-success "><i class="fa fa-plus"></i></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Enviar</button>
+                                <button type="submit" name='submit' class="btn btn-primary">Enviar</button>
                             </div>
                         </form>
                     </div>
@@ -43,5 +55,9 @@
     </div>
 </div>
 <script>
-
+    $("#cliente").change(function() {
+        var cliente_id = $(this).val();
+        $("#grupo").load('./clientes/load_grupos/select/' + cliente_id);
+        $("#login_addon").html($("#cliente option:selected").text() + '_');
+    })
 </script>

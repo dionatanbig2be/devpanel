@@ -4,7 +4,7 @@ class controller
     function __construct()
     {
         global $cookiename;
-        $this->cookiename = $cookiename;
+        $this->cookiename = $cookiename; 
         $this->usuarioAtual = $this->usuarioAtual();
         $this->checaLogado();
         global $ambiente;
