@@ -16,7 +16,7 @@ class controller
     {
         $user = $this->usuarioAtual;
         extract($viewData);
-      /*   $bs = new Bootstrap();
+        /*   $bs = new Bootstrap();
         $bf = new Bootstrap_Field(); */
         if (file_exists('views/temas/' . $user['tema'] . '/layout/sistema/common/header.php'))
             require 'views/temas/' . $user['tema'] . '/layout/sistema/common/header.php';
@@ -24,7 +24,7 @@ class controller
             require 'views/temas/default/common/header.php';
         if (file_exists('views/temas/' . $user['tema'] . '/layout/sistema/common/menu.php'))
             require 'views/temas/' . $user['tema'] . '/layout/sistema/common/menu.php';
-            
+
         else
             require 'views/temas/default/layout/sistema/common/menu.php';
         if (file_exists('views/temas/' . $user['tema'] . '/layout/sistema/common/msg.php'))
@@ -72,6 +72,17 @@ class controller
             if ($user) {
                 $hoje = new DateTime();
                 $validSalt = new DateTime($user['validadeSalt']);
+                if ($user['validadePass'] == NULL) {
+                    $this->msg('d', "Senha expirada, cadastre nova senha.");
+                    if ($_GET['url'] != "usuario/alterarsenha")
+                        header("Location: " . BASE_URL . "usuario/alterarsenha");
+                }
+                $validPass = new DateTime($user['validadePass']);
+                if ($validPass < $hoje) {
+                    $this->msg('d', "Senha expirada, cadastre nova senha.");
+                    if ($_GET['url'] != "usuario/alterarsenha")
+                        header("Location: " . BASE_URL . "usuario/alterarsenha");
+                }
                 if ($validSalt > $hoje) {
                     return $user;
                 } else {

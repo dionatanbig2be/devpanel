@@ -10,7 +10,7 @@
                     <div class="card card-primary">
                         <div class="card-header">
                             <div class="header-block">
-                                <p class="title" style="color: white;">Aletar senha - <?php echo $usuario['nomeUsuario']; ?> </p>
+                                <p class="title" style="color: white;">Alterar senha - <?php echo $usuario['nomeUsuario']; ?> </p>
                             </div>
                         </div>
                         <form method="post" action="<?php echo BASE_URL . "usuario/alterarsenha"; ?>">
