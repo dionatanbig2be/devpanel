@@ -7,7 +7,6 @@ class controller
         $this->cookiename = $cookiename;
         $this->usuarioAtual = $this->usuarioAtual();
         $this->checaLogado();
-        $this->menu = $this->geraMenu(); 
         global $ambiente;
         $this->ambiente = $ambiente;
         global $pepper;
