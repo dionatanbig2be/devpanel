@@ -1,0 +1,22 @@
+on: 
+    push:
+        branches:
+            - master
+
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2
+    
+    - name: Deploy to Staging server
+      uses: easingthemes/ssh-deploy@main
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_USER: ${{ secrets.REMOTE_USER }}
+        REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+        TARGET: /home/u122747008/domains/c2m.16mb.com/public_html/devpanel

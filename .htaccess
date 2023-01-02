@@ -1,0 +1,7 @@
+Options -Indexes -MultiViews +FollowSymLinks
+RewriteEngine On
+
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(?!admin/)(.+)$ /devpanel/index.php?url=$1 [NC,QSA,L]
