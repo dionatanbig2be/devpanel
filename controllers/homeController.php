@@ -8,7 +8,6 @@ class homeController extends controller
         $dados = array();
         $dados['tituloPagina'] = "Dashboard";
 
-
         if (isset($user['grupoUsuario'])) {
             switch ($user['grupoUsuario']) {
                 case 0:

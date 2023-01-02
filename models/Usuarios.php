@@ -49,9 +49,10 @@ class Usuarios extends model
     //ANCHOR - Alterar Senha
     public function alterarSenha($user, $senha)
     {
-        $sql = $this->db->prepare("UPDATE system__users SET password= :senha WHERE id= :id");
-        $sql->bindValue(":id", $user);
+        $sql = $this->db->prepare("UPDATE system__users SET password= :senha, validadePass = :validPass WHERE id= :id");
         $sql->bindValue(":senha", $senha);
+        $sql->bindValue(":validPass", date("Y-m-d", strtotime("+3 months")));
+        $sql->bindValue(":id", $user);
         $sql->execute();
         if ($sql->rowCount() > 0) {
             return true;

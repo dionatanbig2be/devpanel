@@ -18,6 +18,7 @@ class model
                                           u.password,
                                           u.saltUser,
                                           u.validadeSalt,
+                                          u.validadePass,
                                           u.imagemUsuario,
                                           u.grupoUsuario,
                                           u.status AS statusUser,
