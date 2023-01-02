@@ -62,4 +62,15 @@ class clientesController extends controller
         $dados['clientes'] = $c->listClientes();
         $this->loadTemplate('clientes/chave_api', $dados);
     }
+
+     //ANCHOR - Criar acesso
+     public function criar_acesso()
+     {
+         $this->checkAcesso(array(1));
+         $c = new Clientes();
+         $dados = array();
+         $dados['tituloPagina'] = "Criar Acesso ao Painel";
+         $dados['clientes'] = $c->listClientes();
+         $this->loadTemplate('clientes/criar_acesso', $dados);
+     }
 }

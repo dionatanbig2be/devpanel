@@ -29,6 +29,7 @@
                                 <div class="col-sm-3">
                                     <span class="dropdown-item mega-header-title">Criação</span>
                                     <a class="dropdown-item" href="<?php echo BASE_URL; ?>clientes/adicionar" style="font-size: 14px">Adicionar novo cliente</a>
+                                    <a class="dropdown-item" href="<?php echo BASE_URL; ?>clientes/criar_acesso" style="font-size: 14px">Criar Acesso ao Painel</a>
                                     <a class="dropdown-item" href="<?php echo BASE_URL; ?>clientes/chave_api" style="font-size: 14px">Gerar chave API</a>
                                     <div class="dropdown-divider"></div>
                                 </div>
