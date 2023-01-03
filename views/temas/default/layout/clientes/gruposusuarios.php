@@ -13,7 +13,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="cliente">Cliente</label>
-                                    <select name="cliente" id="cliente" class="form-control" required>
+                                    <select name="cliente_id" id="cliente_id" class="form-control" required>
                                         <option value="">Selecione um cliente</option>
                                         <?php foreach ($clientes as $c) : ?>
                                             <option value="<?= $c['id'] ?>"><?= $c['alcunha'] ?></option>
@@ -28,7 +28,6 @@
                                         </div>
                                         <input type="text" class="form-control" id="nome_grupo" name="nome_grupo">
                                         <input type="hidden" class="form-control" id="nome_grupo_prefix" name="nome_grupo_prefix" value="">
-                                        <input type="hidden" class="form-control" id="cliente_id" name="cliente_id" value="">
                                     </div>
                                 </div>
                                 <span>Páginas</span>
@@ -94,11 +93,10 @@
     </div>
 </div>
 <script>
-    $("#cliente").change(function() {
+    $("#cliente_id").change(function() {
         var cliente_id = $(this).val();
         $("#corpo_grupos").load('./clientes/load_grupos/table/' + cliente_id);
-        $("#nome_grupo_addon").html($("#cliente option:selected").text() + '_');
-        $("#nome_grupo_prefix").val($("#cliente option:selected").text() + '_');
-        $("#cliente_id").val($("#cliente option:selected").val());
+        $("#nome_grupo_addon").html($("#cliente_id option:selected").text() + '_');
+        $("#nome_grupo_prefix").val($("#cliente_id option:selected").text() + '_');
     })
 </script>

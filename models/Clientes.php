@@ -19,6 +19,25 @@ class Clientes extends model
         return $dados;
     }
 
+    //ANCHOR - Get Grupo
+    public function getGrupo($grupo_id)
+    {
+        $sql = $this->db->prepare("SELECT id, nomeGrupo, acesso FROM clientes__gruposusuarios WHERE id = ?");
+        $sql->execute(array($grupo_id));
+        $dados = $sql->fetch();
+        return $dados;
+    }
+
+    //ANCHOR - Listar Lojas
+    public function listLojas($usr)
+    {
+        $server = new Big2be_Server();
+        $server->initialize($usr);
+        if ($server->isInitialized() === false) die('Erro no Servidor');
+        $dados = $server->addSql('sql', "SELECT id, storeId, title FROM stores")->execute()->getResult("sql")->getRows();
+        return  $dados;
+    }
+
     //ANCHOR - Listar Páginas
     public function listPaginas()
     {
@@ -50,4 +69,85 @@ class Clientes extends model
             return false;
         }
     }
+
+    //ANCHOR - Insere Login CLI
+    public function insertAuthloginCli($cliente, $usuario, $senha,  $grupo, $siteecommerce, $tipo)
+    {
+        $server = new Big2be_Server();
+        $server->initialize('cli');
+        if ($server->isInitialized() === false) die('Erro no Servidor');
+        $sql =  "INSERT INTO authlogin (
+            user,
+            pass, 
+            authType, 
+            suffix, 
+            businessType, 
+            apiVersion, 
+            opencart_suffix, 
+            siteecommerce, 
+            userecommerce, 
+            dashboard_fat, 
+            big2be_operacoes, 
+            big2be_consulta, 
+            big2be_separacao, 
+            pk, 
+            big2be_delivery, 
+            big2be_motoboy, 
+            initial_page) 
+            VALUES (
+                '$usuario',
+                '$senha',
+                '$grupo',
+                '$cliente',
+                'S',
+                'v2',
+                'dlv_$cliente',
+                '$siteecommerce',
+                'usuario',
+                '',
+                '" . $tipo['operacoes'] . "',
+               '" . $tipo['consulta'] . "',
+               '" . $tipo['separacao'] . "',
+                '',
+                '" . $tipo['delivery'] . "',
+                '" . $tipo['motoboy'] . "',
+                '')";
+        $server->addSql('sql', $sql)->execute()->getResult("sql");
+        if ($server->getLastErrorMessage() != '') {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    //ANCHOR - Insere Pages CLI
+    public function insertAuthpagesCli($grupo, $pages)
+    {
+        $server = new Big2be_Server();
+        $server->initialize('cli');
+        if ($server->isInitialized() === false) die('Erro no Servidor');
+        $sql =  "INSERT INTO authpages (authType,authPages) VALUES ('$grupo','$pages')";
+        $server->addSql('sql', $sql)->execute()->getResult("sql");
+        if ($server->getLastErrorMessage() != '') {
+            return false;
+            die($server->getLastErrorMessage());
+        } else {
+            return true;
+        }
+    }
+
+     //ANCHOR - Insere Permissions CLI
+     public function insertPermissionsCli($usuario, $cliente, $lojas)
+     {
+         $server = new Big2be_Server();
+         $server->initialize('cli');
+         if ($server->isInitialized() === false) die('Erro no Servidor');
+         $sql =  "INSERT INTO permissions (username, suffix, permission, extra, created_by, created_at) VALUES ('$usuario','$cliente', 'permission.admin', '$lojas', 'system', NOW())";
+         $server->addSql('sql', $sql)->execute()->getResult("sql");
+         if ($server->getLastErrorMessage() != '') {
+             return false;
+         } else {
+             return true;
+         }
+     }
 }

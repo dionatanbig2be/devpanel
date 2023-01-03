@@ -72,8 +72,40 @@ class clientesController extends controller
         $dados['tituloPagina'] = "Criar Acesso ao Painel";
         $dados['clientes'] = $c->listClientes();
         if (isset($_POST['submit'])) {
-            $user = $_POST['login'];
+            $cliente = $_POST['nome_cliente'];
+            $siteecommerce = $_POST['ecommerce'];
+            $user = $_POST['nome_cliente'] . '_' . $_POST['login'];
             $hashpass = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+            $grupo  = $c->getGrupo($_POST['grupo']);
+
+            $tipo['painel'] = 0;
+            $tipo['operacoes'] = 0;
+            $tipo['consulta'] = 0;
+            $tipo['separacao'] = 0;
+            $tipo['delivery'] = 0;
+            $tipo['motoboy'] = 0;
+
+            $tipo[$_POST['tipo']] = 1;
+            $insert_login = $c->insertAuthloginCli($cliente, $user, $hashpass, $grupo['nomeGrupo'], $siteecommerce, $tipo);
+            if (!$insert_login) {
+                $this->msg('d', 'Falha ao inserir login, já existente');
+                header("Location: " . BASE_URL . "clientes/criar_acesso");
+                die();
+            }
+            foreach ($_POST['lojas'] as $l) {
+                $loja = explode(';', $l);
+                $lojas[] = ['code' => $loja[0], 'name' => $loja[0] . ' - ' . $loja[1]];
+            }
+            $lojas = json_encode($lojas, JSON_UNESCAPED_UNICODE);
+            $c->insertAuthpagesCli($grupo['nomeGrupo'], $grupo['acesso']);
+           
+            $insert_permissions = $c->insertPermissionsCli($user, $cliente, $lojas);
+            if (!$insert_permissions) {
+                $this->msg('d', 'Falha ao inserir Permissões');
+                header("Location: " . BASE_URL . "clientes/criar_acesso");
+                die();
+            }
+          
         }
         $this->loadTemplate('clientes/criar_acesso', $dados);
     }
@@ -115,10 +147,23 @@ class clientesController extends controller
             $this->checkAcesso(array(1));
             $c = new Clientes();
             $dados = array();
-            $dados['tituloPagina'] = "Criar Acesso ao Painel";
             $dados['grupos'] = $c->listGrupos($cliente_id);
             $dados['tipo'] = $tipo;
             $this->loadTemplateBlank('clientes/load_grupos', $dados);
+        }
+    }
+
+
+    //ANCHOR - Carrega Lojas
+    public function load_lojas($tipo, $cliente)
+    {
+        if ($cliente != 'Selecione um cliente') {
+            $this->checkAcesso(array(1));
+            $c = new Clientes();
+            $dados = array();
+            $dados['lojas'] = $c->listLojas($cliente);
+            $dados['tipo'] = $tipo;
+            $this->loadTemplateBlank('clientes/load_lojas', $dados);
         }
     }
 }
