@@ -3,11 +3,15 @@ class model
 {
 
     protected $db;
+    protected $server;
 
     public function __construct()
     {
         global $db;
         $this->db = $db;
+
+        global $server;
+        $this->server = $server;
     }
 
     public function checaSalt($salt)
