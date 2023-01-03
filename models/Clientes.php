@@ -76,7 +76,7 @@ class Clientes extends model
         $server = new Big2be_Server();
         $server->initialize('cli');
         if ($server->isInitialized() === false) die('Erro no Servidor');
-        $sql =  "INSERT INTO authlogin (
+        $sql =  "INSERT INTO authLogin (
             user,
             pass, 
             authType, 
@@ -126,7 +126,7 @@ class Clientes extends model
         $server = new Big2be_Server();
         $server->initialize('cli');
         if ($server->isInitialized() === false) die('Erro no Servidor');
-        $sql =  "INSERT INTO authpages (authType,authPages) VALUES ('$grupo','$pages')";
+        $sql =  "INSERT INTO authPages (authType,authPages) VALUES ('$grupo','$pages')";
         $server->addSql('sql', $sql)->execute()->getResult("sql");
         if ($server->getLastErrorMessage() != '') {
             return false;
