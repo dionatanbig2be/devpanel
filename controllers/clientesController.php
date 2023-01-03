@@ -162,8 +162,6 @@ class clientesController extends controller
             $c = new Clientes();
             $dados = array();
             $dados['lojas'] = $c->listLojas($cliente);
-            var_dump($dados['lojas']);
-            die();
             $dados['tipo'] = $tipo;
             $this->loadTemplateBlank('clientes/load_lojas', $dados);
         }
