@@ -98,7 +98,7 @@ class clientesController extends controller
             }
             $lojas = json_encode($lojas, JSON_UNESCAPED_UNICODE);
             $c->insertAuthpagesCli($grupo['nomeGrupo'], $grupo['acesso']);
-           
+
             $insert_permissions = $c->insertPermissionsCli($user, $cliente, $lojas);
             if (!$insert_permissions) {
                 $this->msg('d', 'Falha ao inserir Permissões');
@@ -107,10 +107,10 @@ class clientesController extends controller
             }
             $this->msg('s', 'Usuário cadastrado');
             header("Location: " . BASE_URL . "clientes/criar_acesso");
+        } else {
+            $this->loadTemplate('clientes/criar_acesso', $dados);
         }
-        $this->loadTemplate('clientes/criar_acesso', $dados);
     }
-
 
     //ANCHOR - Grupos de Usuários
     public function gruposusuarios()
