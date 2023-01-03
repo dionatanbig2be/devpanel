@@ -76,7 +76,7 @@
                                                 </div>
                                                 <div class="form-check ">
                                                     <input class="form-check-input" type="radio" name="tipo" id="tipo2" value="operacoes">
-                                                    <label class="form-check-label" for="tipo2">Operações</label> 
+                                                    <label class="form-check-label" for="tipo2">Operações teste</label> 
                                                 </div>
                                                 <div class="form-check ">
                                                     <input class="form-check-input" type="radio" name="tipo" id="tipo3" value="consulta">
