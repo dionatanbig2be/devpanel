@@ -31,9 +31,10 @@ class Clientes extends model
     //ANCHOR - Listar Lojas
     public function listLojas($usr)
     {
-        $this->server->initialize($usr);
-        if ($this->server->isInitialized() === false) die('Erro no Servidor');
-        $dados = $this->server->addSql('sql', "SELECT id, storeId, title FROM stores")->execute()->getResult("sql")->getRows();
+        $server = new Big2be_Server();
+        $server->initialize($usr);
+        if ($server->isInitialized() === false) die('Erro no Servidor');
+        $dados = $server->addSql('sql', "SELECT id, storeId, title FROM stores")->execute()->getResult("sql")->getRows();
         return  $dados;
     }
 
