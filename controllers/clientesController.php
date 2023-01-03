@@ -105,7 +105,8 @@ class clientesController extends controller
                 header("Location: " . BASE_URL . "clientes/criar_acesso");
                 die();
             }
-          
+            $this->msg('s', 'Usuário cadastrado');
+            header("Location: " . BASE_URL . "clientes/criar_acesso");
         }
         $this->loadTemplate('clientes/criar_acesso', $dados);
     }
