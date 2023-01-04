@@ -22,7 +22,7 @@
     <script type="text/javascript" src="views/temas/default/assets/js/jquery.mask.js"></script>
     <script type="text/javascript" src="views/temas/default/assets/js/morris.js"></script>
     <script type="text/javascript" src="views/temas/default/assets/js/raphael.js"></script>
-
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <title><?php if (isset($tituloPagina))
                 echo $tituloPagina . " - Big2be";
             else
