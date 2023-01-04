@@ -60,11 +60,9 @@ class DB extends model
     {
         $server = new Big2be_Server();
         $server->initialize($usr);
-        if ($server->isInitialized() === false) die('Erro no Servidor');
-        $dados = $server->addSql('sql', $sql)->execute()->getResult("sql");
-        if ($dados->error)
-            return false;
-        else
-            return true;
+        if ($server->isInitialized() === false)
+            return "Não conectado";
+        $server->addSql('sql', $sql)->execute()->getResult("sql");
+        return $server->getLastErrorMessage();
     }
 }

@@ -15,14 +15,17 @@ class dbController extends controller
         $dados['tituloPagina'] = "Replicar SQL";
         $dados['tabelas'] = $d->listDB();
         if (isset($_POST['sql'])) {
+            $msg = '';
             foreach ($_POST['clientes'] as $cl) {
                 $execute = $d->doSql($cl, $_POST['sql']);
-                if (!$execute) {
-                    $this->msg("d", "Falha ao executar SQL.");
-                    header("Location: " . BASE_URL . "db/replicar");
-                }
+                if ($execute != '')
+                    $msg .= $cl . ': ' . $execute . "<br>";
             }
-            $this->msg("s", "SQL executado com sucesso.");
+            if ($msg != '')
+                $this->msg("w", $msg);
+            else
+                $this->msg("s", "SQL executado com sucesso.");
+
             header("Location: " . BASE_URL . "db/replicar");
         } else {
             $this->loadTemplate('db/replicar', $dados);
