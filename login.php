@@ -202,8 +202,8 @@ session_start();
                 echo $output;
             }
             ?>
-        <?php endif; ?>
         </div>
+    <?php endif; ?>
 </body>
 
 </html>

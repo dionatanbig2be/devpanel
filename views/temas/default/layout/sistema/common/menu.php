@@ -55,7 +55,11 @@
                                     <a class="dropdown-item" href="<?php echo BASE_URL; ?>usuario/deslogatodos" style="font-size: 14px">Deslogar Todos</a>
                                     <div class="dropdown-divider"></div>
                                 </div>
-
+                                <div class="col-sm-3">
+                                    <span class="dropdown-item mega-header-title">Servidores</span>
+                                    <a class="dropdown-item" href="<?php echo BASE_URL; ?>servidores" style="font-size: 14px">Listar</a>
+                                    <div class="dropdown-divider"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
