@@ -38,12 +38,14 @@ class dbController extends controller
         $this->checkAcesso(array(1));
         $d = new DB();
         $c = new Clientes();
+        $s = new Servidores();
         $dados = array();
         $dados['tituloPagina'] = "Gerenciar DB";
         $dados['tabelas'] = $d->listDB();
         $dados['clientes'] = $c->listClientes();
+        $dados['servidores'] = $s->getServers();
         if (isset($_POST['sufixo'])) {
-            if (!$d->addBanco($_POST['cliente'], $_POST['prefixo'], $_POST['sufixo'])) {
+            if (!$d->addBanco($_POST['cliente'], $_POST['prefixo'], $_POST['sufixo'], $_POST['servidor'])) {
                 $this->msg("d", "Falha ao executar SQL.");
                 header("Location: " . BASE_URL . "db/gerenciar");
             } else {
@@ -62,6 +64,34 @@ class dbController extends controller
         $d = new DB();
         $delete = $d->deleteBanco($id);
         if ($delete)
-            echo 'true';
+            $this->msg("s", "Banco excluído com sucesso.");
+        else
+            $this->msg("d", "Falha ao excluir o banco.");
+        header("Location: " . BASE_URL . "db/gerenciar");
+    }
+
+
+    //ANCHOR - Editar DB
+    public function editar($id)
+    {
+        $this->checkAcesso(array(1));
+        $d = new DB();
+        $c = new Clientes();
+        $s = new Servidores();
+        $dados = array();
+        if (isset($_POST['submit'])) {
+            $edita = $d->editaBanco($id, $_POST['cliente'], $_POST['prefixo'], $_POST['sufixo'], $_POST['servidor']);
+            if (!$edita) {
+                $this->msg("d", "Falha ao editar o banco.");
+            } else {
+                $this->msg("s", "Banco editado com sucesso.");
+            }
+            header("Location: " . BASE_URL . "db/gerenciar");
+        } else {
+            $dados['banco'] = $d->getBanco($id);
+            $dados['clientes'] = $c->listClientes();
+            $dados['servidores'] = $s->getServers();
+            $this->loadTemplate('db/editar', $dados);
+        }
     }
 }

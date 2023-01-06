@@ -18,6 +18,7 @@
                                         <th>ID</th>
                                         <th>Prefixo</th>
                                         <th>Sufixo</th>
+                                        <th>Servidor</th>
                                         <th>Excluir</th>
                                     </tr>
                                 </thead>
@@ -28,7 +29,11 @@
                                                 <td><?= $bn['id'] ?></td>
                                                 <td><?= $b ?></td>
                                                 <td><?= $bn['banco'] ?></td>
-                                                <td><a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a></td>
+                                                <td><?= $bn['servidor'] ?></td>
+                                                <td>
+                                                    <a href="./db/editar/<?= $bn['id'] ?>" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                                    <a href="./db/delete/<?= $bn['id'] ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                                </td>
                                             </tr>
                                         <?php endforeach; ?>
                                     <?php endforeach; ?>
@@ -61,6 +66,14 @@
                                 <div class="form-group">
                                     <label for="sufixo">Sufixo</label>
                                     <input type="text" class="form-control" id="sufixo" name="sufixo">
+                                </div>
+                                <div class="form-group">
+                                    <label for="servidor">Servidor</label>
+                                    <select name="servidor" id="servidor" class="form-control">
+                                        <?php foreach ($servidores as $sv) : ?>
+                                            <option value="<?= $sv['id'] ?>"><?= $sv['descricao'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Enviar</button>
                             </form>
