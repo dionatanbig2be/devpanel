@@ -44,21 +44,61 @@
                                     <label for="prefixo">Alcunha</label>
                                     <input type="text" class="form-control" id="alcunha" name="alcunha">
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="app_" value="app_">
-                                    <label class="form-check-label" for="app_">app_</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input type="checkbox" name="app_" value="app_">
+                                            <label class="form-check-label" for="app_">app_</label>
+                                        </div>
+                                    </div>
+                                    <select name="servidor_app" id="servidor_app" class="form-control" >
+                                        <option value="">Selecione o Servidor</option>
+                                        <?php foreach ($servidores as $s) : ?>
+                                            <option value="<?= $s['id'] ?>"><?= $s['descricao'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="dlv_" value="dlv_">
-                                    <label class="form-check-label" for="dlv_">dlv_</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input type="checkbox" name="dlv_" value="dlv_">
+                                            <label class="form-check-label" for="app_">dlv_</label>
+                                        </div>
+                                    </div>
+                                    <select name="servidor_dlv" id="servidor_dlv" class="form-control" >
+                                        <option value="">Selecione o Servidor</option>
+                                        <?php foreach ($servidores as $s) : ?>
+                                            <option value="<?= $s['id'] ?>"><?= $s['descricao'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="dwh_" value="dwh_">
-                                    <label class="form-check-label" for="dwh_">dwh_</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input type="checkbox" name="dwh_" value="dwh_">
+                                            <label class="form-check-label" for="app_">dwh_</label>
+                                        </div>
+                                    </div>
+                                    <select name="servidor_dwh" id="servidor_dwh" class="form-control" >
+                                        <option value="">Selecione o Servidor</option>
+                                        <?php foreach ($servidores as $s) : ?>
+                                            <option value="<?= $s['id'] ?>"><?= $s['descricao'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="wap_" value="wap_">
-                                    <label class="form-check-label" for="wap_">wap_</label>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">
+                                            <input type="checkbox" name="wap_" value="wap_">
+                                            <label class="form-check-label" for="app_">wap_</label>
+                                        </div>
+                                    </div>
+                                    <select name="servidor_wap" id="servidor_wap" class="form-control" >
+                                        <option value="">Selecione o Servidor</option>
+                                        <?php foreach ($servidores as $s) : ?>
+                                            <option value="<?= $s['id'] ?>"><?= $s['descricao'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                             </div>
                             <div class="card-footer">
